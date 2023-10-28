@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PrograII - App Web</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/script.js"></script>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        position: relative;
+    }
+    
+    #video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        min-height: 100%;
+        z-index: -1;
+    }
+
+    #content {
+        color: white;
+        text-align: center;
+        padding: 0; /* Ajustar el padding a tu preferencia */
+        position: relative;
+        z-index: 1;
+    }
+
+    .navbar {
+        margin-bottom: 0; /* Ajustar el margen inferior de la barra de navegación */
+    }
+
+    .container {
+        margin-top: 0; /* Ajustar el margen superior del contenedor principal */
+    }
+</style>
+</head>
+<body>
+    <video id="video-background" autoplay loop muted>
+        <source src="videos/camaro.mp4" type="video/mp4">
+        <!-- Agrega más fuentes de video para navegadores diferentes si es necesario -->
+    </video>
+    
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class "dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-warning my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="text-primary">Registro de Productos</h1>
+                    <form method="POST" id="form" name="form" action="NewServlet">
+                        <div class="form-group">
+                            <label for="codigo">Codigo</label>
+                            <input class="form-control bg-success text-white" type="text" placeholder="Ingresar código" name="codigo" id="codigo">
+                            <input type="hidden" id="control" name="control" value="GUARDAR">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre de Producto</label>
+                            <input class="form-control bg-info text-white" type="text" placeholder="Ingresar nombre" name="nombre" id="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="precio">Precio</label>
+                            <input type="number" class="form-control bg-warning text-dark" name="precio" id="precio">
+                        </div>
+                        <div class="form-group">
+                            <label for="existencia">Existencia</label>
+                            <input type="text" class="form-control bg-danger text-white" name="existencia" id="existencia">
+                        </div>
+                        <div class="form-group">
+                            <label for="marca">Marca</label>
+                            <select class="form-control bg-primary text-white" name="marca">
+                                <option value="1">Chevrolet</option>
+                                <option value="2">Dodge</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria">Categoria</label>
+                            <select class="form-control bg-secondary text-white" name="categoria">
+                                <option value="1">Carreras</option>
+                                <option value="2">Carretera</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="enviarFormularioOpcion2()" class="btn btn-success">Guardar</button>
+                        <button type="button" onclick="limpiarTabla()" class="btn btn-danger">Cancelar</button>
+                        <button type="button" onclick="mostrarProductos()" class="btn btn-primary">Mostrar</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div id="container2">
+                        <table class="table table-striped table-hover table-info" id="tabla1">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Codigo del Producto</th>
+                                    <th>Nombre del Producto</th>
+                                    <th>Precio</th>
+                                    <th>Cant. en Existencia</th>
+                                    <th>Marca</th>
+                                    <th>Categoria</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodyTable">
+                                <!-- Contenido de la tabla -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
